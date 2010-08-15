@@ -6,7 +6,7 @@ Requires at least: 2.7
 Tested up to: 3.0
 Stable tag: trunk
 
-Adds an image_src meta tag to your header using post thumbnnail (you must have post thumbnails / featured image enabled), first image on post/page content, or a defined default image.
+Adds an image_src meta tag to your header using post thumbnnail, first image on post/page content, or a defined default image.
 
 == Description ==
 This plugin helps ensure your content has a relevant thumbnail when shared on social sites.
