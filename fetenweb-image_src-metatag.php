@@ -3,7 +3,7 @@
 Plugin Name:  FetenWeb image_src Metatag
 Plugin URI:   http://fetenweb.com/fetenweb-image-src-metatag-plugin-for-wordpress
 Description:  Adds an image_src metatag to your header using post thumbnnail, the first image on post/page content, or a defined default image. So helps sites like FaceBook use a relevant image as thumbnail when sharing content.
-Version:      1.0
+Version:      1.1
 Author:       Aitor de la Puente
 Author URI:   http://fetenweb.com
 License:      GPL 2
@@ -31,7 +31,7 @@ function fetenweb_image_src_metatag() {
 	
 	if (is_single() || is_page()) {
 		
-		if (has_post_thumbnail($post->ID)) {
+		if (function_exists("has_post_thumbnail") && has_post_thumbnail($post->ID)) {
 			$thumb_id = get_post_thumbnail_id($post->ID);
 			$image = wp_get_attachment_image_src($thumb_id);
 			$image = $image[0];
@@ -55,6 +55,7 @@ function fetenweb_image_src_metatag() {
 		if (strpos($image,'http://') !== 0 && strpos($image, get_bloginfo('url')) !== 0 && $image != get_option('fetenweb_image_src_metatag_default'))
 			$image = (get_bloginfo('url')) . '/' . $image;
 		echo '<link rel="image_src" href="' . esc_attr($image) . '"></link>';
+		echo '<meta property="og:image" content="' . esc_attr($image) . '"/>';
 	}
 	
 }
@@ -80,7 +81,7 @@ function fetenweb_image_src_metatag_options() {
 				<tr valign="top">
 					<th scope="row"><label for="option_fetenweb_image_src_metatag_default">Default image:</label></th>
 					<td>
-						<input type="text" size="45" id="option_fetenweb_image_src_metatag_default" name="fetenweb_image_src_metatag_default" value="<?php echo get_option('fetenweb_image_src_metatag_default'); ?>" /><br />
+						<input type="text" size="90" id="option_fetenweb_image_src_metatag_default" name="fetenweb_image_src_metatag_default" value="<?php echo get_option('fetenweb_image_src_metatag_default'); ?>" /><br />
 						<i>Absolute path</i>
 					</td>
 				</tr>
